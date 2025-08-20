@@ -17,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration
-    .GetConnectionString("Server=db25474.public.databaseasp.net; Database=db25474; User Id=db25474; Password=xT%7@h9G5Sk?; Encrypt=True; TrustServerCertificate=True; MultipleActiveResultSets=True;")));
+    .GetConnectionString("Server=db25474.databaseasp.net; Database=db25474; User Id=db25474; Password=xT%7@h9G5Sk?; Encrypt=True; TrustServerCertificate=True; MultipleActiveResultSets=True;")));
 
 
 builder.Services.AddJwtDependecies(builder.Configuration);
