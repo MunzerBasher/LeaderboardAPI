@@ -20,7 +20,7 @@ namespace LeaderboardAPI.Date.DbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=db25474.public.databaseasp.net; Database=db25474; User Id=db25474; Password=xT%7@h9G5Sk?; Encrypt=True; TrustServerCertificate=True; MultipleActiveResultSets=True;");
+            optionsBuilder.UseSqlServer("Server=db25474.databaseasp.net; Database=db25474; User Id=db25474; Password=xT%7@h9G5Sk?; Encrypt=True; TrustServerCertificate=True; MultipleActiveResultSets=True;");
             base.OnConfiguring(optionsBuilder);
         }
     }
