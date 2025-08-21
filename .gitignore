@@ -1,0 +1,15 @@
+# Build outputs
+**/bin/
+**/obj/
+
+# User-specific
+*.user
+*.suo
+
+# Local certs and secrets
+LeaderboardAPI/certs/
+appsettings.*.local.json
+
+# OS/editor
+.DS_Store
+.vs/

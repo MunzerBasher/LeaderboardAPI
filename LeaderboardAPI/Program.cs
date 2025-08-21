@@ -8,6 +8,7 @@ using LeaderboardAPI.Date.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using LeaderboardAPI.Date.Entites;
+using Microsoft.AspNetCore.HttpOverrides;
 
 
 
@@ -40,17 +41,38 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 //builder.Services.AddOpenApi();
 
+// CORS: configurable allowed origins (if none provided, allow any for dev)
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        Policy =>
+    options.AddPolicy("AllowAll", policy =>
+    {
+        if (allowedOrigins.Length > 0)
         {
-            Policy.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-        });
+            policy.WithOrigins(allowedOrigins)
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        }
+        else
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        }
+    });
 });
 
+// Kestrel HTTPS configuration: use certificate if provided via config or env vars
+// Config keys: Kestrel:Certificates:Default:Path and ...:Password
+var certPath = builder.Configuration["Kestrel:Certificates:Default:Path"]
+               ?? Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Path");
+var certPassword = builder.Configuration["Kestrel:Certificates:Default:Password"]
+                  ?? Environment.GetEnvironmentVariable("ASPNETCORE_Kestrel__Certificates__Default__Password");
+
+var httpPort = builder.Configuration.GetValue<int?>("Kestrel:Endpoints:Http:Port") ?? 5000;
+var httpsPort = builder.Configuration.GetValue<int?>("Kestrel:Endpoints:Https:Port") ?? 5001;
+
+    // Kestrel is configured via appsettings.json/environment variables.
 
 var app = builder.Build();
 
@@ -59,6 +81,18 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+// Respect X-Forwarded-* headers when behind a reverse proxy (e.g., Nginx)
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
+
 app.UseHttpsRedirection();
 
 app.UseRouting();

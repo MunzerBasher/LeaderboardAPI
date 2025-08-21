@@ -1,1 +1,1 @@
-"# LeaderboardAPI" 
+"# LeaderboardAPI"
