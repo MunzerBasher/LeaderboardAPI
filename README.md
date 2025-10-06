@@ -32,47 +32,19 @@ Ranks (e.g., competitive placement)
 🛠️ Technology Stack
 The project is built on a modern, high-performance Microsoft technology stack:
 
-Category
-
-Technology
-
-Description
-
-Backend
-
 .NET 8 (C#)
 
 High-performance runtime and modern C# features.
 
-API Framework
-
-ASP.NET Core (Web API)
+API Framework , ASP.NET Core (Web API)
 
 Framework for building fast, cross-platform HTTP services.
 
-Database
-
-SQL Server
-
-Primary relational data store.
-
-ORM
-
-EF-Core
-
-Object-Relational Mapper for seamless database interaction.
+Database , SQL Server , Primary relational data store. , ORM , EF-Core
 
 Security
 
-JWT, Identity
-
-Token-based authentication and user/role management.
-
-Utilities
-
-CORS
-
-Configured to handle cross-origin requests securely.
+JWT, Identity , Token-based authentication and user/role management ,Utilities , CORS , Configured to handle cross-origin requests securely.
 
 Validation
 
