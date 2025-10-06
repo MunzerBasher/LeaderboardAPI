@@ -1,5 +1,3 @@
-"# LeaderboardAPI" 
-
 A robust and secure Web API designed and implemented using .NET 8 to manage the lifecycle of a competition, including contestant registration, real-time leaderboard generation, reward assignment, and secure administrative operations. The API adheres to modern RESTful best practices and maintains a clean, scalable codebase.
 
 ✨ Key Features
